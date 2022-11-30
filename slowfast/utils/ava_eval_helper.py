@@ -146,7 +146,7 @@ def evaluate_ava(
     name="latest",
 ):
     """Run AVA evaluation given numpy arrays."""
-
+    print("Evaluating ava")
     eval_start = time.time()
 
     detections = get_ava_eval_data(

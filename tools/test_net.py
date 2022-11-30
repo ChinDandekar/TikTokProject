@@ -71,9 +71,7 @@ def perform_test(test_loader, model, test_meter, cfg, writer=None):
                         val[i] = val[i].cuda(non_blocking=True)
                 else:
                     meta[key] = val.cuda(non_blocking=True)
-        print("before test_meter.data_toc()")
         test_meter.data_toc()
-        print("after test_meter.data_toc()")
 
         if cfg.DETECTION.ENABLE:
             # Compute the predictions.
@@ -127,6 +125,9 @@ def perform_test(test_loader, model, test_meter, cfg, writer=None):
             print("forward passing the inputs")
             preds = model(inputs)
             print("Created prediction")
+            print("prediction is:")
+            print(preds)
+            print("with size:" + str(preds.size()))
         # Gather all the predictions across all the devices to perform ensemble.
         if cfg.NUM_GPUS > 1:
             preds, labels, video_idx = du.all_gather([preds, labels, video_idx])
@@ -168,6 +169,11 @@ def perform_test(test_loader, model, test_meter, cfg, writer=None):
             )
 
     test_meter.finalize_metrics()
+    print("Printing prediction")
+    print(test_meter.video_preds)
+    print("tensor shape: " + str(test_meter.video_preds.size()))
+    print("Printing labels")
+    print(test_meter.video_labels)
     return test_meter
 
 

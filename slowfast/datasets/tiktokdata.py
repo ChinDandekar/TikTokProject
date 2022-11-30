@@ -12,6 +12,7 @@ from torchvision import transforms
 import slowfast.utils.logging as logging
 from slowfast.utils.env import pathmgr
 
+from slowfast.datasets.DataSplit import write_csvs
 from . import decoder as decoder
 from . import transform as transform
 from . import utils as utils
@@ -107,6 +108,9 @@ class Tiktokdata(torch.utils.data.Dataset):
         """
         Construct the video loader.
         """
+
+        write_csvs(self.cfg.DATA.PATH_TO_DATA_DIR)
+
         path_to_file = os.path.join(
             self.cfg.DATA.PATH_TO_DATA_DIR, "{}.csv".format(self.mode)
         )

@@ -200,6 +200,8 @@ class AVAMeter(object):
         all_ori_boxes = torch.cat(self.all_ori_boxes, dim=0)
         all_metadata = torch.cat(self.all_metadata, dim=0)
 
+        print("finalizing metrics")
+
         if self.mode == "test" or (self.full_ava_test and self.mode == "val"):
             groundtruth = self.full_groundtruth
         else:
@@ -385,6 +387,7 @@ class TestMeter(object):
         ks (tuple): list of top-k values for topk_accuracies. For example,
             ks = (1, 5) correspods to top-1 and top-5 accuracy.
         """
+        print("finalizing metrics")
         clip_check = self.clip_count == self.num_clips
         if not all(clip_check):
             logger.warning(

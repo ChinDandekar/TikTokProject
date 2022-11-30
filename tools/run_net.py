@@ -37,6 +37,7 @@ def main():
                     launch_job(cfg=cfg, init_method=args.init_method, func=test)
             else:
                 launch_job(cfg=cfg, init_method=args.init_method, func=test)
+        print("finished launching job")
 
         # Perform model visualization.
         if cfg.TENSORBOARD.ENABLE and (
@@ -44,7 +45,7 @@ def main():
             or cfg.TENSORBOARD.WRONG_PRED_VIS.ENABLE
         ):
             launch_job(cfg=cfg, init_method=args.init_method, func=visualize)
-            print("finished launching job")
+            
 
         # Run demo.
         if cfg.DEMO.ENABLE:
